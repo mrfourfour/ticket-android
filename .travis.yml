@@ -6,7 +6,10 @@ before_install:
   - if [ `uname -m` = x86_64 ]; then sudo apt-get install -qq --force-yes libgd2-xpm ia32-libs ia32-libs-multiarch > /dev/null; fi
   - wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip
   - unzip sdk-tools-linux-4333796.zip
-  - export ANDROID_HOME=$PWD/android-sdk-linux
+  - mkdir $HOME/Android
+  - mkdir $HOME/Andorid/Sdk
+  - mv $PWD/tools $HOME/Android/Sdk/
+  - export ANDROID_HOME=$HOME/Android/Sdk
   - export PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
 
 
