@@ -1,5 +1,10 @@
 language: android
 dist: trusty
+branches:
+  only:
+  - master
+  - development
+
 android:
   components:
     - build-tools-27.0.3
