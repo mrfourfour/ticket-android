@@ -4,7 +4,7 @@ android:
   components:
     - build-tools-27.0.3
     - android-27
-    - build-tools-29.0.1
+    - build-tools-29.0.2
     - android-29 
     - extra-google-google_play_services
     - extra-google-m2repository
@@ -25,4 +25,4 @@ cache:
     - $HOME/.android/build-cache
 
 script: 
-  - ./gradlew build connectedCheck
+  - ./gradlew clean build
