@@ -1,34 +1,33 @@
-env:
-  - TERM=dumb
-before_install:
-# Install base Android SDK
-  - sudo apt-get update -qq
-  - if [ `uname -m` = x86_64 ]; then sudo apt-get install -qq --force-yes libgd2-xpm ia32-libs ia32-libs-multiarch > /dev/null; fi
-  - wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip
-  - unzip sdk-tools-linux-4333796.zip
-  - mkdir $HOME/Android
-  - mkdir $HOME/Andorid/Sdk
-  - mv $PWD/tools $HOME/Android/Sdk/
-  - export ANDROID_HOME=$HOME/Android/Sdk
-  - export PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
+language: android
+dist: trusty
+branches:
+  only:
+  - master
+  - development
 
+android:
+  components:
+    - build-tools-27.0.3
+    - android-27
+    - build-tools-29.0.2
+    - android-29 
+    - extra-google-google_play_services
+    - extra-google-m2repository
+    - extra-android-m2repository
+  licenses:
+    - 'android-sdk-preview-license-52d11cd2'
+    - 'android-sdk-license.+'
+    - 'google-gdk-license-.+'
 
-  # Install required components.
-  # For a full list, run `android list sdk -a --extended`
-  # Note that sysimg-19 downloads only ARM, because only the first license query is accepted.
-  - echo yes | android update sdk --filter platform-tools --no-ui --force > /dev/null
-  - echo yes | android update sdk --filter android-19 --no-ui --force > /dev/null
-  - echo yes | android update sdk --filter extra-android-support --no-ui --force > /dev/null
-  - echo yes | android update sdk --filter extra-android-m2repository --no-ui --force > /dev/null
+before_cache:
+  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 
-  # Google play services
-  - echo yes | android update sdk --filter extra-google-google_play_services --no-ui --force > /dev/null
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+    - $HOME/.android/build-cache
 
-  # Google Repository
-  - echo yes | android update sdk --filter extra-google-m2repository --no-ui --force > /dev/null
-
-  # Android SDK Build-tools
-
-  - echo yes | android update sdk --all --filter build-tools-19.0.3 --no-ui --force > /dev/null
-
-script: - ./gradlew build
+script: 
+  - ./gradlew clean build
