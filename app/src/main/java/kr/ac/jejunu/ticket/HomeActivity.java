@@ -39,9 +39,11 @@ public class HomeActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.home_menu :
                 Toast.makeText(this,"you select home button",Toast.LENGTH_LONG).show();
+                navController.navigate(R.id.homeFragment);
                 return true;
             case R.id.shopping_menu:
                 Toast.makeText(this, "you select shopping button", Toast.LENGTH_SHORT).show();
+                navController.navigate(R.id.action_homeFragment_to_shoppingFragment);
                 return true;
         }
         return false;
