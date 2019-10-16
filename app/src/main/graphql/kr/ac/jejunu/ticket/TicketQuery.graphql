@@ -1,0 +1,11 @@
+query TicketQuery {
+    allTicket {
+        id
+        status
+        amount
+        totalPrice
+        productId
+        date
+        qrData
+    }
+}
