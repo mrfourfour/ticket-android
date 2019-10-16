@@ -9,5 +9,14 @@
         android:id="@+id/homeFragment"
         android:name="kr.ac.jejunu.ticket.fragment.HomeFragment"
         android:label="home_fragment"
-        tools:layout="@layout/home_fragment" />
+        tools:layout="@layout/home_fragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_shoppingFragment"
+            app:destination="@id/shoppingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/shoppingFragment"
+        android:name="kr.ac.jejunu.ticket.fragment.ShoppingFragment"
+        android:label="fragment_shopping_main"
+        tools:layout="@layout/fragment_shopping_main" />
 </navigation>

@@ -1,0 +1,14 @@
+query ProductByCategoryQuery($categorys : String) {
+    productByCategory(category: $categorys) {
+        id
+        name
+        sellerId
+        image
+        category
+        subCategory
+        info
+        area
+        price
+        option
+    }
+}

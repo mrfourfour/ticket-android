@@ -6,22 +6,21 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import kr.ac.jejunu.ticket.model.TicketResponse;
-import kr.ac.jejunu.ticket.repository.TicketRepository;
+import kr.ac.jejunu.ticket.TicketQuery;
+import kr.ac.jejunu.ticket.repository.TicketDataRepository;
 
 public class HomeFragmentViewModel extends AndroidViewModel {
 
-    private final TicketRepository ticketRepository;
-    private LiveData<TicketResponse> ticketLiveData;
-
+    private final TicketDataRepository repository;
+    private LiveData<TicketQuery.Data> ticketLiveData;
     public HomeFragmentViewModel(@NonNull Application application) {
         super(application);
 
-        ticketRepository = new TicketRepository();
-        this.ticketLiveData = ticketRepository.getTickets();
+        repository = new TicketDataRepository();
+        this.ticketLiveData = repository.getTicket();
     }
 
-    public LiveData<TicketResponse> getTicketLiveData() {
+    public LiveData<TicketQuery.Data> getTicketLiveData() {
         return ticketLiveData;
     }
 }
