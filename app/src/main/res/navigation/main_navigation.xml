@@ -18,5 +18,14 @@
         android:id="@+id/shoppingFragment"
         android:name="kr.ac.jejunu.ticket.fragment.ShoppingFragment"
         android:label="fragment_shopping_main"
-        tools:layout="@layout/fragment_shopping_main" />
+        tools:layout="@layout/shopping_main_fragment" >
+        <action
+            android:id="@+id/action_shoppingFragment_to_detailActivity"
+            app:destination="@id/detailActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/detailActivity"
+        android:name="kr.ac.jejunu.ticket.activity.DetailActivity"
+        android:label="activity_detail"
+        tools:layout="@layout/activity_detail" />
 </navigation>
