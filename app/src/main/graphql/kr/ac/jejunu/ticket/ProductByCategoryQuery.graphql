@@ -1,5 +1,5 @@
-query ProductByCategoryQuery($categorys : String) {
-    productByCategory(category: $categorys) {
+query ProductByCategoryQuery($categorys : String, $area : String) {
+    productByCategory(category: $categorys, area: $area) {
         id
         name
         sellerId
@@ -12,3 +12,4 @@ query ProductByCategoryQuery($categorys : String) {
         option
     }
 }
+

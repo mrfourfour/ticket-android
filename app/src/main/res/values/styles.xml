@@ -9,6 +9,30 @@
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:colorBackground">@android:color/white</item>
         <item name="android:windowContentTransitions">true</item>
+
+    </style>
+
+    <style name="ShoppingTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:colorBackground">@android:color/white</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
+    <style name="ToolbarTitleStyleParent">
+        <item name="android:fontFamily">casual</item>
+        <item name="android:shadowDx">0.5</item>
+        <item name="android:shadowDy">0.5</item>
+        <item name="android:shadowRadius">0.5</item>
+        <item name="android:shadowColor">#ffffff</item>
+    </style>
+
+    <style name="CollapsingTitleStyle" parent="ToolbarTitleStyleParent">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="ExpandedTitleStyle" parent="ToolbarTitleStyleParent">
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
 </resources>

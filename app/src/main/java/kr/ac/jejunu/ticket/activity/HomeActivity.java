@@ -1,4 +1,4 @@
-package kr.ac.jejunu.ticket;
+package kr.ac.jejunu.ticket.activity;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +10,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import kr.ac.jejunu.ticket.R;
 
 public class HomeActivity extends AppCompatActivity {
     private static final String TAG = "HomeActivity";

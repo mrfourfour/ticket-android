@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import kr.ac.jejunu.ticket.ProductByCategoryQuery;
 import kr.ac.jejunu.ticket.R;
@@ -50,7 +51,8 @@ public class ShoppingCategoryChildAdapter extends RecyclerView.Adapter<ShoppingC
     }
 
     public void addList(List<ProductByCategoryQuery.ProductByCategory> productByCategory) {
-        productCategoryItmes.addAll(productByCategory);
+//        productCategoryItmes.addAll(productByCategory);
+        productCategoryItmes.addAll(Optional.ofNullable(productByCategory).orElse(productCategoryItmes));
     }
 
     class ChildViewHolder extends RecyclerView.ViewHolder {
@@ -59,6 +61,7 @@ public class ShoppingCategoryChildAdapter extends RecyclerView.Adapter<ShoppingC
         ChildViewHolder(@NonNull CategoryShoppingInnerItemBinding bind) {
             super(bind.getRoot());
             this.bind = bind;
+            bind.textLayout.bringToFront();
         }
     }
 }

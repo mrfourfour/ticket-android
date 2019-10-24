@@ -32,7 +32,7 @@ public class ShoppingBestCategoryAdapter extends RecyclerView.Adapter<ShoppingBe
 
     @Override
     public int getItemCount() {
-        return 1;
+        return 3;
     }
 
     public class BestViewHolder extends RecyclerView.ViewHolder {
