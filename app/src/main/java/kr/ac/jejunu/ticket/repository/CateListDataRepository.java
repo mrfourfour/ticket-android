@@ -12,8 +12,8 @@ import org.jetbrains.annotations.NotNull;
 import kr.ac.jejunu.ticket.CategoryListQuery;
 import kr.ac.jejunu.ticket.apollo.ApolloRequest;
 
-public class ProductListDataRepository {
-    private static final String TAG = ProductListDataRepository.class.getSimpleName();
+public class CateListDataRepository {
+    private static final String TAG = CateListDataRepository.class.getSimpleName();
 
     public LiveData<CategoryListQuery.Data> getList() {
         final MutableLiveData<CategoryListQuery.Data> data = new MutableLiveData<>();
