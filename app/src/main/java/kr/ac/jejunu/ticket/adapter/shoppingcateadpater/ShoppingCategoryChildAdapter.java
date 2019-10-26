@@ -1,11 +1,13 @@
 package kr.ac.jejunu.ticket.adapter.shoppingcateadpater;
 
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -19,12 +21,15 @@ import kr.ac.jejunu.ticket.databinding.CategoryShoppingInnerItemBinding;
 public class ShoppingCategoryChildAdapter extends RecyclerView.Adapter<ShoppingCategoryChildAdapter.ChildViewHolder> {
 
     private static final String TAG = ShoppingCategoryChildAdapter.class.getSimpleName();
-    private final List<ProductByCategoryQuery.ProductByCategory> productCategoryItmes;
+    private final List<ProductByCategoryQuery.ProductByCategory> productCategoryItems;
+    private final NavController controller;
     private CategoryShoppingInnerItemBinding binding;
 
-    public ShoppingCategoryChildAdapter() {
-        this.productCategoryItmes = new ArrayList<>();
+    public ShoppingCategoryChildAdapter(NavController controller) {
+        this.productCategoryItems = new ArrayList<>();
+        this.controller =controller;
     }
+
 
     @NonNull
     @Override
@@ -36,23 +41,31 @@ public class ShoppingCategoryChildAdapter extends RecyclerView.Adapter<ShoppingC
 
     @Override
     public void onBindViewHolder(@NonNull ChildViewHolder holder, int position) {
-        if (productCategoryItmes.size() !=0) {
-            holder.bind.setProductModel(productCategoryItmes.get(position));
+        if (productCategoryItems.size() !=0) {
+            holder.bind.setProductModel(productCategoryItems.get(position));
+            holder.bind.imageView.setOnClickListener(product -> click(productCategoryItems.get(position).id()));
         } else {
             holder.bind.imageView.setImageResource(R.drawable.preparing_product);
         }
     }
 
+    private void click(String id) {
+        Log.d(TAG,id);
+        Bundle bundle = new Bundle();
+        bundle.putString("id",id);
+        controller.navigate(R.id.action_shoppingFragment_to_productDetailFragment2,bundle);
+    }
+
     @Override
     public int getItemCount() {
-        if (productCategoryItmes.size() != 0) {
-            return productCategoryItmes.size();
+        if (productCategoryItems.size() != 0) {
+            return productCategoryItems.size();
         }else return 1;
     }
 
     public void addList(List<ProductByCategoryQuery.ProductByCategory> productByCategory) {
-//        productCategoryItmes.addAll(productByCategory);
-        productCategoryItmes.addAll(Optional.ofNullable(productByCategory).orElse(productCategoryItmes));
+        productCategoryItems
+                .addAll(Optional.ofNullable(productByCategory).orElse(productCategoryItems));
     }
 
     class ChildViewHolder extends RecyclerView.ViewHolder {

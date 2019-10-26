@@ -2,40 +2,32 @@ package kr.ac.jejunu.ticket.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.fragment.NavHostFragment;
 
 import kr.ac.jejunu.ticket.R;
+import kr.ac.jejunu.ticket.data.DetailToFragment;
 
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends AppCompatActivity implements DetailToFragment{
     private static final String TAG = DetailActivity.class.getSimpleName();
-//    private String cate;
-//
-//    public String getCate() {
-//        return cate;
-//    }
-//
-//    public String getArea() {
-//        return area;
-//    }
-//
-//    private String area;
+    private Bundle bundle;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-//        Intent intent = getIntent();
-//        Bundle bundle = intent.getBundleExtra("bundle");
-//        cate = bundle.getString("category");
-//        area = bundle.getString("area");
-//        Log.d("!!!", cate + "/" + area);
+        Intent intent = getIntent();
+        bundle = intent.getBundleExtra("bundle");
+    }
 
+    @Override
+    public String getCate() {
+        return bundle.getString("category");
+    }
 
+    @Override
+    public String getArea() {
+        return bundle.getString("area");
     }
 }
