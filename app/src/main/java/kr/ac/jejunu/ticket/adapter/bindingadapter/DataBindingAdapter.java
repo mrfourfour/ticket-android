@@ -13,4 +13,5 @@ public class DataBindingAdapter {
                 .load(imageUrl)
                 .into(view);
     }
+
 }

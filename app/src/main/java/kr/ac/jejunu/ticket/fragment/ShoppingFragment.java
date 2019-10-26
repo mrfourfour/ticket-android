@@ -52,6 +52,8 @@ public class ShoppingFragment extends Fragment {
         categorys = new ArrayList<>();
         cateAreas = new ArrayList<>();
 
+        getCategoryList();
+
     }
 
     @Nullable
@@ -59,9 +61,10 @@ public class ShoppingFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil
                 .inflate(inflater, R.layout.shopping_main_fragment, container, false);
-        getCategoryList();
+
         bestCateView();
         setupViews();
+        tab(cateAreas);
         shoppingCateView(areaName);
         binding.toolbar.setTitle("어벤져스");
         return binding.getRoot();
@@ -80,7 +83,7 @@ public class ShoppingFragment extends Fragment {
         RecyclerView recyclerView = binding.mainRecyclerview;
         LinearLayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(manager);
-        adapter = new ShoppingCategoryParentAdapter(categorys, getActivity(), this::ClickDetail, areaName);
+        adapter = new ShoppingCategoryParentAdapter(categorys, getActivity(), this::ClickDetail, areaName,controller);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
     }
@@ -89,10 +92,9 @@ public class ShoppingFragment extends Fragment {
         Bundle bundle = new Bundle();
         bundle.putString("category", category);
         bundle.putString("area",areaName);
-        controller.navigate(R.id.action_shoppingFragment_to_detailActivity,bundle);
-//        Intent intent = new Intent(getActivity(), DetailActivity.class);
-//        intent.putExtra("bundle",bundle);
-//        startActivity(intent);
+        Intent intent = new Intent(getActivity(), DetailActivity.class);
+        intent.putExtra("bundle",bundle);
+        startActivity(intent);
     }
 
     private void getCategoryList() {

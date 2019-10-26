@@ -1,0 +1,14 @@
+query ProductByIdQuery($id : String) {
+    productById(id : $id) {
+        id
+        name
+        sellerId
+        image
+        category
+        subCategory
+        info
+        area
+        price
+        option
+    }
+}

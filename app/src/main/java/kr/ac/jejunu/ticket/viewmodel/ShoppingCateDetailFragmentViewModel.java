@@ -9,14 +9,13 @@ import androidx.lifecycle.LiveData;
 import kr.ac.jejunu.ticket.CategoryListQuery;
 import kr.ac.jejunu.ticket.repository.CateListDataRepository;
 
-public class ShoppingFragmentViewModel extends AndroidViewModel {
+public class ShoppingCateDetailFragmentViewModel extends AndroidViewModel {
     private final CateListDataRepository repository;
-    private LiveData<CategoryListQuery.Data> productCategoryList;
-    public ShoppingFragmentViewModel(@NonNull Application application) {
+    private LiveData<CategoryListQuery.Data> list;
+    public ShoppingCateDetailFragmentViewModel(@NonNull Application application) {
         super(application);
         repository = new CateListDataRepository();
-        this.productCategoryList = repository.getList();
+        this.list =repository.getList();
     }
-
-    public LiveData<CategoryListQuery.Data> getProductCategoryList() {return productCategoryList;}
+    public LiveData<CategoryListQuery.Data> getAllProduct()  {return list;}
 }

@@ -1,14 +1,13 @@
 package kr.ac.jejunu.ticket.adapter.shoppingcateadpater;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.navigation.NavController;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
@@ -18,20 +17,20 @@ import androidx.recyclerview.widget.SnapHelper;
 import com.apollographql.apollo.ApolloCall;
 import com.apollographql.apollo.api.Input;
 import com.apollographql.apollo.api.Response;
-import com.apollographql.apollo.api.internal.Optional;
 import com.apollographql.apollo.exception.ApolloException;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import kr.ac.jejunu.ticket.ProductByCategoryQuery;
 import kr.ac.jejunu.ticket.R;
-import kr.ac.jejunu.ticket.databinding.CategoryShoppingMainItemBinding;
 import kr.ac.jejunu.ticket.apollo.ApolloRequest;
+import kr.ac.jejunu.ticket.databinding.CategoryShoppingMainItemBinding;
 
 public class ShoppingCategoryParentAdapter extends RecyclerView.Adapter<ShoppingCategoryParentAdapter.ParentViewHolder> {
+
+    private final NavController controller;
 
     public interface Callback {
         void callback(String cate);
@@ -45,12 +44,13 @@ public class ShoppingCategoryParentAdapter extends RecyclerView.Adapter<Shopping
     private CategoryShoppingMainItemBinding binding;
     private final RecyclerView.RecycledViewPool recycledViewPool;
 
-    public ShoppingCategoryParentAdapter(ArrayList<String> productCategory, Activity context, Callback callback,String areaName) {
+    public ShoppingCategoryParentAdapter(ArrayList<String> productCategory, Activity context, Callback callback, String areaName, NavController controller) {
         this.productCategory = productCategory;
         this.context = context;
         recycledViewPool = new RecyclerView.RecycledViewPool();
         this.callback = callback;
         this.areaName = areaName;
+        this.controller = controller;
     }
 
     @NonNull
@@ -67,7 +67,6 @@ public class ShoppingCategoryParentAdapter extends RecyclerView.Adapter<Shopping
     public void onBindViewHolder(@NonNull ParentViewHolder holder, int position) {
         LinearLayoutManager manager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         holder.bind.category.setText(productCategory.get(position));
-        holder.adapter = new ShoppingCategoryChildAdapter();
         getProducts(position, holder.adapter);
         holder.bind.recyclerHorizontal.setAdapter(holder.adapter);
         holder.bind.recyclerHorizontal.setRecycledViewPool(recycledViewPool);
@@ -76,16 +75,17 @@ public class ShoppingCategoryParentAdapter extends RecyclerView.Adapter<Shopping
         holder.bind.recyclerHorizontal.setNestedScrollingEnabled(false);
         holder.bind.recyclerHorizontal.setItemAnimator(new DefaultItemAnimator());
 
-        //Todo 과연 최선일까?
-        holder.bind.textView2.setOnClickListener(v -> {
-            Log.d(TAG,"눌렀습니다.");
-            callback.callback(productCategory.get(position));
-        });
+        holder.bind.textView2.setOnClickListener(v -> callback.callback(productCategory.get(position)));
     }
 
     private void getProducts(int position, final ShoppingCategoryChildAdapter adapter) {
-        ProductByCategoryQuery query = new ProductByCategoryQuery(Input.fromNullable(productCategory.get(position)),Input.fromNullable(areaName));
-        ApolloRequest.getApolloInstance().query(query).enqueue(new ApolloCall.Callback<ProductByCategoryQuery.Data>() {
+        String cate = productCategory.get(position);
+        String area = areaName;
+        ProductByCategoryQuery query = new ProductByCategoryQuery(Input.fromNullable(cate),Input.fromNullable(area));
+        ApolloRequest
+                .getApolloInstance()
+                .query(query)
+                .enqueue(new ApolloCall.Callback<ProductByCategoryQuery.Data>() {
             @Override
             public void onResponse(@NotNull Response<ProductByCategoryQuery.Data> response) {
                 adapter.addList(response.data().productByCategory());
@@ -111,6 +111,7 @@ public class ShoppingCategoryParentAdapter extends RecyclerView.Adapter<Shopping
         public ParentViewHolder(@NonNull CategoryShoppingMainItemBinding bind) {
             super(bind.getRoot());
             this.bind = bind;
+            adapter = new ShoppingCategoryChildAdapter(controller);
         }
     }
 }
