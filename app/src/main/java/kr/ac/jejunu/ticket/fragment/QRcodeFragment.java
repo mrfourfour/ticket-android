@@ -1,5 +1,6 @@
 package kr.ac.jejunu.ticket.fragment;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,11 +19,11 @@ import kr.ac.jejunu.ticket.databinding.QrcodeTransitionBinding;
 public class QRcodeFragment extends Fragment {
 
 
-    public QRcodeFragment() {
-    }
+    private final Bitmap bitmap;
+    private QrcodeTransitionBinding binding;
 
-    public static QRcodeFragment newInstance() {
-        return new QRcodeFragment();
+    public QRcodeFragment(Bitmap bitmap) {
+        this.bitmap = bitmap;
     }
 
     @Override
@@ -35,8 +36,8 @@ public class QRcodeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        QrcodeTransitionBinding binding = DataBindingUtil.inflate(inflater, R.layout.qrcode_transition, container, false);
-        View view = binding.getRoot();
-        return view;
+        binding = DataBindingUtil.inflate(inflater, R.layout.qrcode_transition, container, false);
+        binding.qrcodeTransition.setImageBitmap(bitmap);
+        return binding.getRoot();
     }
 }

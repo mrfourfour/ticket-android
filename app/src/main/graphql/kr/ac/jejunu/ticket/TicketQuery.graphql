@@ -7,5 +7,7 @@ query TicketQuery {
         productId
         date
         qrData
+        userId
+        optionId
     }
 }
