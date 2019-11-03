@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import kr.ac.jejunu.ticket.CategoryListQuery;
+import kr.ac.jejunu.ticket.application.AppApplication;
 import kr.ac.jejunu.ticket.repository.CateListDataRepository;
 
 public class ShoppingFragmentViewModel extends AndroidViewModel {
@@ -14,7 +15,7 @@ public class ShoppingFragmentViewModel extends AndroidViewModel {
     private LiveData<CategoryListQuery.Data> productCategoryList;
     public ShoppingFragmentViewModel(@NonNull Application application) {
         super(application);
-        repository = new CateListDataRepository();
+        repository = new CateListDataRepository((AppApplication)application);
         this.productCategoryList = repository.getList();
     }
 

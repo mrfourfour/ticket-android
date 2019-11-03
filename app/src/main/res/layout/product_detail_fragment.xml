@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    >
 
     <data>
         <variable
             name="product"
             type="kr.ac.jejunu.ticket.ProductByIdQuery.ProductById" />
+
+        <variable
+            name="viewmodel"
+            type="kr.ac.jejunu.ticket.viewmodel.ProductDataViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -42,6 +48,7 @@
                         android:layout_height="300dp"
                         android:scaleType="centerCrop"
                         app:imgSrc="@{product.image()}"
+                        android:transitionName="product"
                          />
 
                     <TextView
@@ -49,7 +56,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="@{product.id()}"
+                        android:text="@{product.name()}"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
                     <TextView
@@ -120,7 +127,9 @@
 
         <include
             android:id="@+id/order"
-            layout="@layout/order_layout" />
+            layout="@layout/order_layout"
+            bind:viewmodel="@{viewmodel}"
+            />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

@@ -1,5 +1,5 @@
 package kr.ac.jejunu.ticket.application;
 
-public interface getTokenable {
+public interface GetTokenable {
     String getToken();
 }

@@ -9,15 +9,24 @@ import com.apollographql.apollo.exception.ApolloException;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+import java.util.Optional;
+
 import kr.ac.jejunu.ticket.CategoryListQuery;
 import kr.ac.jejunu.ticket.apollo.ApolloRequest;
+import kr.ac.jejunu.ticket.application.GetTokenable;
 
-public class CateListDataRepository {
+public class CateListDataRepository extends DataRepository{
     private static final String TAG = CateListDataRepository.class.getSimpleName();
+
+    public CateListDataRepository(GetTokenable getTokenable) {
+        super(getTokenable);
+    }
+
 
     public LiveData<CategoryListQuery.Data> getList() {
         final MutableLiveData<CategoryListQuery.Data> data = new MutableLiveData<>();
-        ApolloRequest.getApolloInstance().query(CategoryListQuery.builder().build()).enqueue(new ApolloCall.Callback<CategoryListQuery.Data>() {
+        ApolloRequest.getApolloInstance(accessToken).query(CategoryListQuery.builder().build()).enqueue(new ApolloCall.Callback<CategoryListQuery.Data>() {
             @Override
             public void onResponse(@NotNull Response<CategoryListQuery.Data> response) {
                 data.postValue(response.data());

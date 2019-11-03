@@ -9,11 +9,12 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/qrcodeTransition"
             android:layout_width="300dp"
             android:layout_height="300dp"
             android:background="@android:color/white"
             android:transitionName="QRCode"
+            android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

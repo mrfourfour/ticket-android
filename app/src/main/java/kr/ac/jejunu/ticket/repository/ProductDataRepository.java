@@ -12,12 +12,18 @@ import org.jetbrains.annotations.NotNull;
 
 import kr.ac.jejunu.ticket.ProductByIdQuery;
 import kr.ac.jejunu.ticket.apollo.ApolloRequest;
+import kr.ac.jejunu.ticket.application.GetTokenable;
 
-public class ProductDataRepository {
+public class ProductDataRepository extends DataRepository {
+
+    public ProductDataRepository(GetTokenable getTokenable) {
+        super(getTokenable);
+    }
+
     public LiveData<ProductByIdQuery.Data> getProduct(String id) {
         final MutableLiveData<ProductByIdQuery.Data> data = new MutableLiveData<>();
         ProductByIdQuery query = new ProductByIdQuery(Input.fromNullable(id));
-        ApolloRequest.getApolloInstance().query(query).enqueue(new ApolloCall.Callback<ProductByIdQuery.Data>() {
+        ApolloRequest.getApolloInstance(accessToken).query(query).enqueue(new ApolloCall.Callback<ProductByIdQuery.Data>() {
             @Override
             public void onResponse(@NotNull Response<ProductByIdQuery.Data> response) {
                 data.postValue(response.data());
