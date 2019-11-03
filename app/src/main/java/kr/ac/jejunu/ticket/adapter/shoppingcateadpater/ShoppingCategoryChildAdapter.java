@@ -25,6 +25,7 @@ public class ShoppingCategoryChildAdapter extends RecyclerView.Adapter<ShoppingC
     private final NavController controller;
     private CategoryShoppingInnerItemBinding binding;
 
+
     public ShoppingCategoryChildAdapter(NavController controller) {
         this.productCategoryItems = new ArrayList<>();
         this.controller =controller;
@@ -50,7 +51,6 @@ public class ShoppingCategoryChildAdapter extends RecyclerView.Adapter<ShoppingC
     }
 
     private void click(String id) {
-        Log.d(TAG,id);
         Bundle bundle = new Bundle();
         bundle.putString("id",id);
         controller.navigate(R.id.action_shoppingFragment_to_productDetailFragment2,bundle);

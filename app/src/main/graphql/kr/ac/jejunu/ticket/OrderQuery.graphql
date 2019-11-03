@@ -1,0 +1,8 @@
+mutation OrderQuery($amount : Int! , $totalPrice: Int!,$optionId:String!,$productId:String!) {
+    makeTicket(amount: $amount, totalPrice:$totalPrice, optionId: $optionId ,productId: $productId) {
+        amount
+        totalPrice
+        optionId
+        productId
+    }
+}

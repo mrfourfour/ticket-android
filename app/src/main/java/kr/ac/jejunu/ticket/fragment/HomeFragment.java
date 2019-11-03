@@ -1,5 +1,7 @@
 package kr.ac.jejunu.ticket.fragment;
 
+import android.app.ProgressDialog;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -20,6 +22,8 @@ import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 import androidx.transition.TransitionInflater;
+
+import com.google.zxing.qrcode.QRCodeWriter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +60,9 @@ public class HomeFragment extends Fragment {
         viewModel = ViewModelProviders.of(this).get(HomeFragmentViewModel.class);
         tickets = new ArrayList<>();
         getTickets();
+
     }
+
 
     @Nullable
     @Override
@@ -76,8 +82,8 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void sharedFragment(String ticket_qrcode, View view) {
-        QRcodeFragment qRcodeFragment = QRcodeFragment.newInstance();
+    private void sharedFragment(Bitmap bitmap, View view) {
+        QRcodeFragment qRcodeFragment = new QRcodeFragment(bitmap);
         setSharedElementReturnTransition(TransitionInflater.from(getActivity()).inflateTransition(R.transition.change_image_transform));
         setExitTransition(TransitionInflater.from(getActivity()).inflateTransition(android.R.transition.fade));
 
@@ -99,15 +105,21 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(mLayoutManager);
         snapHelper.attachToRecyclerView(recyclerView);
 
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+        });
+
         DisplayMetrics dm = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getRealMetrics(dm);
         width = dm.widthPixels;
         int left = ((int) width) / 4;
         recyclerView.setPadding(left, 0, left, 0);
 
-        adapter = new CurrentTicketRecyclerAdapter(tickets, (item, view) -> {
-            sharedFragment(item.qrData(),view);
-        }, width);
+        adapter = new CurrentTicketRecyclerAdapter(tickets, this::sharedFragment, width,getActivity().getApplication(),getActivity());
         recyclerView.setAdapter(adapter);
+        if (tickets.size() == 0) binding.container.setBackgroundResource(R.drawable.ring);
     }
 }

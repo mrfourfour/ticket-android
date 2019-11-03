@@ -9,7 +9,12 @@ query ProductByCategoryQuery($categorys : String, $area : String) {
         info
         area
         price
-        option
+        options {
+            id
+            description
+            date
+            amout
+        }
     }
 }
 

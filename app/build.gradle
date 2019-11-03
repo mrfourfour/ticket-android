@@ -34,9 +34,14 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    //backdrop
     //material design
     api 'com.google.android.material:material:1.0.0'
+    //QRcode
+    implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
+    //gson
+    implementation 'com.google.code.gson:gson:2.8.5'
+    //jsoup
+    implementation 'org.jsoup:jsoup:1.11.3'
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
@@ -49,7 +54,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.6.1'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.0.1'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.1'
-    //Apollo Clieent
+    //Apollo Client
     implementation 'com.apollographql.apollo:apollo-runtime:1.0.0'
     implementation "com.apollographql.apollo:apollo-android-support:1.0.0"
     implementation 'javax.annotation:jsr250-api:1.0'

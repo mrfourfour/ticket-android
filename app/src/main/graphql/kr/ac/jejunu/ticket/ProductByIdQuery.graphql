@@ -9,6 +9,11 @@ query ProductByIdQuery($id : String) {
         info
         area
         price
-        option
+        options {
+            id
+            description
+            date
+            amout
+        }
     }
 }
